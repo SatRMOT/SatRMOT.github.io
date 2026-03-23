@@ -1,76 +1,325 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Towards Richer Referring Multi-Object Tracking in Satellite Videos: A Large Scale Dataset and Baseline</title>
+  <style>
+    :root {
+      --bg: #f4f1ea;
+      --surface: #fffdf8;
+      --surface-strong: #ffffff;
+      --text: #1f2933;
+      --muted: #5b6773;
+      --line: #ddd2c3;
+      --accent: #8b2e1d;
+      --accent-soft: #f6e5dd;
+      --shadow: 0 18px 45px rgba(52, 39, 24, 0.10);
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --content-width: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(139, 46, 29, 0.10), transparent 26%),
+        radial-gradient(circle at top right, rgba(186, 145, 84, 0.12), transparent 24%),
+        linear-gradient(180deg, #f7f4ee 0%, var(--bg) 100%);
+      line-height: 1.75;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page-shell {
+      width: min(calc(100% - 40px), var(--content-width));
+      margin: 0 auto;
+      padding: 36px 0 72px;
+    }
+
+    .hero {
+      background: linear-gradient(140deg, rgba(255, 255, 255, 0.96), rgba(252, 248, 241, 0.98));
+      border: 1px solid rgba(221, 210, 195, 0.85);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      padding: 44px 48px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 46, 29, 0.12), rgba(139, 46, 29, 0));
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 3.3vw, 3.55rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      text-wrap: balance;
+    }
+
+    .authors,
+    .affiliations {
+      text-align: center;
+      margin: 0;
+    }
+
+    .hero-header {
+      text-align: center;
+    }
+
+    .authors {
+      margin-top: 22px;
+      font-size: 1.14rem;
+      line-height: 1.9;
+    }
+
+    .affiliations {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    main {
+      margin-top: 30px;
+      display: grid;
+      gap: 24px;
+    }
+
+    .section-card {
+      background: rgba(255, 253, 248, 0.92);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 10px 30px rgba(67, 49, 30, 0.06);
+      padding: 28px 30px 32px;
+      backdrop-filter: blur(6px);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .section-index {
+      flex: 0 0 auto;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #b95e46);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.35rem, 2vw, 1.9rem);
+      line-height: 1.25;
+    }
+
+    .section-card p {
+      margin: 0;
+      font-size: 1.03rem;
+      color: var(--text);
+    }
+
+    .abstract-text {
+      max-width: 92ch;
+      color: #2c3843;
+      text-align: justify;
+    }
+
+    .media-frame {
+      margin-top: 18px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid #d6cab8;
+      background: var(--surface-strong);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .media-frame iframe,
+    .media-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 0;
+    }
+
+    .video-frame {
+      aspect-ratio: 16 / 9;
+      background:
+        linear-gradient(135deg, rgba(35, 41, 51, 0.95), rgba(79, 46, 33, 0.92)),
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 40%);
+    }
+
+    .video-frame iframe {
+      width: 100%;
+      height: 100%;
+    }
+
+    .footer-space {
+      height: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .page-shell {
+        width: min(calc(100% - 24px), var(--content-width));
+        padding-top: 18px;
+      }
+
+      .hero {
+        padding: 28px 20px 24px;
+        border-radius: 24px;
+      }
+
+      .section-card {
+        padding: 22px 18px 24px;
+        border-radius: 20px;
+      }
+
+      .section-head {
+        align-items: flex-start;
+      }
+
+      .authors {
+        font-size: 1rem;
+      }
+
+      .affiliations,
+      .section-card p {
+        font-size: 0.97rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-header">
+        <div class="eyebrow">Satellite Video Dataset Project</div>
+        <h1>Towards Richer Referring Multi-Object Tracking in Satellite Videos: A Large Scale Dataset and Baseline</h1>
+        <p class="authors">
+          <a href="https://openreview.net/profile?id=%7EWeiqing_Lu2">Weiqing Lu</a><sup>1</sup>,
+          <a href="https://scholar.google.com/citations?user=lmVsnBsAAAAJ&hl=zh-CN">Bin Sun</a><sup>1</sup>,
+          <a href="https://scholar.google.com/citations?user=KT4fQP0AAAAJ&hl=zh-CN">Fuyan Ma</a><sup>2</sup>,
+          <a href="https://openreview.net/profile?id=%7EFuhua_Zhang2">Fuhua Zhang</a><sup>1</sup>,
+          <a href="https://openreview.net/profile?id=~Hu_Guo1">Hu Guo</a><sup>1</sup>,
+          <a href="https://scholar.google.com/citations?user=PlBq8n8AAAAJ&hl=zh-CN">Shutao Li</a><sup>1</sup>
+        </p>
+        <p class="affiliations">
+          <sup>1</sup>School of Artificial Intelligence and Robotics, Hunan University
+          <br>
+          <sup>2</sup>Xiangya Hospital, Central South University
+        </p>
+      </div>
+    </header>
 
-  <!-- Title -->
-  <h1>Towards Richer Referring Multi-Object Tracking in Satellite Videos: A Large Scale Dataset and Baseline</h1>
+    <main>
+      <section class="section-card">
+        <div class="section-head">
+          <span class="section-index">01</span>
+          <h2>Abstract</h2>
+        </div>
+        <p class="abstract-text">
+          Referring Multi-Object Tracking in satellite videos (RMOT-SV) aims to track multiple targets in remote sensing images using natural language descriptions, yet remains underexplored due to the lack of large scale and expressive datasets. Existing benchmarks are limited in scale, category diversity, and annotation richness, typically focusing on a few object classes with short and simple expressions. To address these limitations, we present SatRMOT, a large scale dataset for referring multi-object tracking in satellite videos, comprising 523 videos, 138k frames, and 19k referring expressions across four categories, with extensive annotations of tiny objects, particularly cars. A multi-agent collaborative framework is developed to enable richer annotations with multi-object descriptions, longer expressions, and fine-grained semantics involving motion, spatial relations, and contextual cues. Building upon this dataset, we propose Dual Refinement Track (DRTrack), which performs joint refinement in both visual and linguistic domains to better align small-object representations with rich referring expressions. Extensive experiments demonstrate the challenging nature of our dataset and the effectiveness of our method.
+        </p>
+      </section>
 
-  <!-- Authors -->
-  <p>
-    <a href="https://openreview.net/profile?id=%7EWeiqing_Lu2">Weiqing Lu</a><sup>1</sup>,
-    <a href="https://scholar.google.com/citations?user=lmVsnBsAAAAJ&hl=zh-CN">Bin Sun</a><sup>1</sup>,
-    <a href="https://scholar.google.com/citations?user=KT4fQP0AAAAJ&hl=zh-CN">Fuyan Ma</a><sup>2</sup>,
-    <a href="https://openreview.net/profile?id=%7EFuhua_Zhang2">Fuhua Zhang</a><sup>1</sup>,
-    <a href="https://openreview.net/profile?id=~Hu_Guo1">Hu Guo</a><sup>1</sup>,
-    <a href="https://scholar.google.com/citations?user=PlBq8n8AAAAJ&hl=zh-CN">Shutao Li</a><sup>1</sup>
-  </p>
-  <p>
-    <sup>1</sup>School of Artificial Intelligence and Robotics, Hunan University
-    <br>
-    <sup>2</sup>Xiangya Hospital, Central South University
-  </p>
+      <section class="section-card">
+        <div class="section-head">
+          <span class="section-index">02</span>
+          <h2>SatRMOT</h2>
+        </div>
+        <div class="media-frame video-frame">
+          <iframe
+            src="https://player.bilibili.com/player.html?bvid=BV1LVQZBnEFZ&page=1"
+            title="SatRMOT video"
+            scrolling="no"
+            frameborder="0"
+            allowfullscreen="true">
+          </iframe>
+        </div>
+      </section>
 
-  <hr>
+      <section class="section-card">
+        <div class="section-head">
+          <span class="section-index">03</span>
+          <h2>Dataset Statistics</h2>
+        </div>
+        <div class="media-frame">
+          <img src="assets/3.png" alt="Dataset statistics for SatRMOT">
+        </div>
+      </section>
 
-  <!-- Abstract -->
-  <h2>Abstract</h2>
-  <p>
-    Referring Multi-Object Tracking in satellite videos (RMOT-SV) aims to track multiple targets in remote sensing images using natural language descriptions, yet remains underexplored due to the lack of large scale and expressive datasets. Existing benchmarks are limited in scale, category diversity, and annotation richness, typically focusing on a few object classes with short and simple expressions. To address these limitations, we present SatRMOT, a large scale dataset for referring multi-object tracking in satellite videos, comprising 523 videos, 138k frames, and 19k referring expressions across four categories, with extensive annotations of tiny objects, particularly cars. A multi-agent collaborative framework is developed to enable richer annotations with multi-object descriptions, longer expressions, and fine-grained semantics involving motion, spatial relations, and contextual cues. Building upon this dataset, we propose Dual Refinement Track (DRTrack), which performs joint refinement in both visual and linguistic domains to better align small-object representations with rich referring expressions. Extensive experiments demonstrate the challenging nature of our dataset and the effectiveness of our method.
-  </p>
+      <section class="section-card">
+        <div class="section-head">
+          <span class="section-index">04</span>
+          <h2>Semi-Automatic Multi-Agent Framework for Rich Semantic Annotation</h2>
+        </div>
+        <div class="media-frame">
+          <img src="assets/multi-agent.png" alt="Multi-agent annotation framework">
+        </div>
+      </section>
 
-  <hr>
+      <section class="section-card">
+        <div class="section-head">
+          <span class="section-index">05</span>
+          <h2>DRTrack</h2>
+        </div>
+        <div class="media-frame">
+          <img src="assets/method.png" alt="DRTrack method overview">
+        </div>
+      </section>
+    </main>
 
-  <!-- SatRMOT -->
-  <h2>SatRMOT</h2>
-  <p>
-    <iframe
-      src="https://player.bilibili.com/player.html?bvid=BV1LVQZBnEFZ&page=1"
-      width="100%"
-      height="720"
-      scrolling="no"
-      frameborder="0"
-      allowfullscreen="true">
-    </iframe>
-  </p>
-
-  <hr>
-
-  <!-- Dataset Statistics -->
-  <h2>Dataset Statistics</h2>
-  <p>
-    <img src="assets/3.png" alt="Dataset statistics for SatRMOT" width="100%">
-  </p>
-
-  <hr>
-
-  <!-- Semi-Automatic Rich Semantic Annotation Framework -->
-  <h2>Semi-Automatic Multi-Agent Framework for Rich Semantic Annotation</h2>
-  <p>
-    <img src="assets/multi-agent.png" alt="Multi-agent annotation framework" width="100%">
-  </p>
-
-  <hr>
-
-  <!-- DRTrack -->
-  <h2>DRTrack</h2>
-  <p>
-    <img src="assets/method.png" alt="DRTrack method overview" width="100%">
-  </p>
-
+    <div class="footer-space"></div>
+  </div>
 </body>
 </html>
