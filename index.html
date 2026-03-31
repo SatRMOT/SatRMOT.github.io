@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Towards Richer Referring Multi-Object Tracking in Satellite Videos: A Large Scale Dataset and Baseline</title>
+  <title>Towards Richer Referring Multi-Object Tracking in Satellite Videos: A Large-Scale Dataset and Baseline</title>
   <style>
     :root {
-      --bg: #f4f1ea;
-      --surface: #fffdf8;
+      --bg: #f4f8ff;
+      --surface: #feffff;
       --surface-strong: #ffffff;
-      --text: #1f2933;
-      --muted: #5b6773;
-      --line: #ddd2c3;
-      --accent: #8b2e1d;
-      --accent-soft: #f6e5dd;
-      --shadow: 0 18px 45px rgba(52, 39, 24, 0.10);
+      --text: #233650;
+      --muted: #647998;
+      --line: #dce8f7;
+      --accent: #3a7ff0;
+      --accent-soft: #edf4ff;
+      --shadow: 0 18px 45px rgba(41, 69, 118, 0.1);
       --radius-lg: 24px;
       --radius-md: 18px;
       --content-width: 1120px;
@@ -33,9 +33,9 @@
       font-family: Georgia, "Times New Roman", serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(139, 46, 29, 0.10), transparent 26%),
-        radial-gradient(circle at top right, rgba(186, 145, 84, 0.12), transparent 24%),
-        linear-gradient(180deg, #f7f4ee 0%, var(--bg) 100%);
+        radial-gradient(circle at top left, rgba(58, 127, 240, 0.16), transparent 26%),
+        radial-gradient(circle at top right, rgba(249, 207, 110, 0.16), transparent 24%),
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
       line-height: 1.75;
     }
 
@@ -55,8 +55,8 @@
     }
 
     .hero {
-      background: linear-gradient(140deg, rgba(255, 255, 255, 0.96), rgba(252, 248, 241, 0.98));
-      border: 1px solid rgba(221, 210, 195, 0.85);
+      background: linear-gradient(140deg, rgba(255, 255, 255, 0.99), rgba(247, 250, 255, 0.99));
+      border: 1px solid rgba(221, 233, 247, 0.94);
       border-radius: 32px;
       box-shadow: var(--shadow);
       padding: 44px 48px 36px;
@@ -72,7 +72,7 @@
       width: 220px;
       height: 220px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(139, 46, 29, 0.12), rgba(139, 46, 29, 0));
+      background: radial-gradient(circle, rgba(58, 127, 240, 0.2), rgba(58, 127, 240, 0));
       pointer-events: none;
     }
 
@@ -140,34 +140,58 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 190px;
+      flex-direction: column;
+      min-width: 230px;
       padding: 12px 20px;
       border-radius: 999px;
-      background: linear-gradient(135deg, var(--accent), #b95e46);
+      background: linear-gradient(135deg, var(--accent), #86b8ff);
       color: #fff;
       font-size: 0.98rem;
       font-weight: 700;
       letter-spacing: 0.01em;
-      box-shadow: 0 10px 24px rgba(139, 46, 29, 0.20);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      box-shadow: 0 10px 24px rgba(58, 127, 240, 0.22);
+      transition: transform 0.24s ease, box-shadow 0.24s ease, opacity 0.24s ease, filter 0.24s ease;
+    }
+
+    .action-label {
+      font-size: 0.88rem;
+      line-height: 1.1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .action-subtext {
+      margin-top: 4px;
+      font-size: 1rem;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-transform: none;
     }
 
     .action-button:hover {
       text-decoration: none;
-      transform: translateY(-1px);
-      box-shadow: 0 14px 28px rgba(139, 46, 29, 0.26);
-      opacity: 0.96;
+      transform: translateY(-2px);
+      box-shadow: 0 16px 30px rgba(58, 127, 240, 0.28);
+      opacity: 0.98;
+      filter: saturate(1.04);
+    }
+
+    .action-button:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 18px rgba(58, 127, 240, 0.2);
     }
 
     .action-button.secondary {
       background: rgba(255, 255, 255, 0.92);
       color: var(--accent);
-      border: 1px solid rgba(139, 46, 29, 0.24);
-      box-shadow: 0 10px 24px rgba(67, 49, 30, 0.08);
+      border: 1px solid rgba(58, 127, 240, 0.22);
+      box-shadow: 0 10px 24px rgba(41, 69, 118, 0.07);
     }
 
     .action-button.secondary:hover {
-      box-shadow: 0 14px 28px rgba(67, 49, 30, 0.12);
+      box-shadow: 0 14px 28px rgba(41, 69, 118, 0.1);
     }
 
     main {
@@ -177,12 +201,13 @@
     }
 
     .section-card {
-      background: rgba(255, 253, 248, 0.92);
+      background: rgba(251, 253, 255, 0.94);
       border: 1px solid var(--line);
       border-radius: var(--radius-lg);
-      box-shadow: 0 10px 30px rgba(67, 49, 30, 0.06);
+      box-shadow: 0 10px 30px rgba(41, 69, 118, 0.05);
       padding: 28px 30px 32px;
       backdrop-filter: blur(6px);
+      transition: transform 1s ease, opacity 1s ease, box-shadow 0.3s ease;
     }
 
     .section-head {
@@ -205,7 +230,7 @@
     .abstract-text {
       margin: 0 auto;
       padding: 0 2em;
-      color: #2c3843;
+      color: #2d4c6c;
       text-align: left;
       text-indent: 2em;
     }
@@ -214,9 +239,17 @@
       margin-top: 18px;
       border-radius: var(--radius-md);
       overflow: hidden;
-      border: 1px solid #d6cab8;
+      border: 1px solid #e0eaf8;
       background: var(--surface-strong);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .media-frame.plain-media {
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      overflow: visible;
     }
 
     .media-frame iframe,
@@ -227,9 +260,577 @@
       border: 0;
     }
 
+    .media-frame img {
+      cursor: default;
+    }
+
+    .media-frame img.zoomable-image {
+      cursor: zoom-in;
+    }
+
+
+    .image-hover-preview {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 300px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translate3d(0, 0, 0);
+      transition: opacity 0.18s ease, visibility 0.18s ease;
+      z-index: 1000;
+    }
+
+    .image-hover-preview.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .image-hover-preview-shell {
+      padding: 14px;
+      border-radius: 20px;
+      background: rgba(252, 254, 255, 0.97);
+      border: 1px solid rgba(223, 234, 247, 0.96);
+      box-shadow: 0 24px 60px rgba(18, 15, 12, 0.28);
+      backdrop-filter: blur(6px);
+    }
+
+    .image-hover-preview-stage {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      background: #f8fbff;
+      width: 272px;
+      height: 272px;
+    }
+
+    .image-hover-preview-stage::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border: 1px solid rgba(31, 41, 51, 0.08);
+      pointer-events: none;
+    }
+
+    .image-hover-preview-stage img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: block;
+      max-width: none;
+      max-height: none;
+      will-change: transform;
+      transition: transform 0.14s ease-out;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .accordion-group {
+      display: grid;
+      gap: 14px;
+    }
+
+    .accordion-item {
+      border: 1px solid rgba(58, 127, 240, 0.13);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
+      overflow: hidden;
+    }
+
+    .accordion-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 16px 20px;
+      color: var(--accent);
+      font-size: 1.03rem;
+      font-weight: 700;
+      background: linear-gradient(180deg, rgba(237, 244, 255, 0.95), rgba(249, 252, 255, 0.99));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transition: background 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
+    }
+
+    .accordion-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .accordion-item summary::after {
+      content: "+";
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.8rem;
+      height: 1.8rem;
+      font-size: 1.3rem;
+      line-height: 1;
+      color: var(--accent);
+      flex: 0 0 auto;
+      border-radius: 999px;
+      background: rgba(58, 127, 240, 0.11);
+      transform: rotate(0deg) scale(1);
+      transition: transform 0.28s ease, background-color 0.28s ease, color 0.28s ease;
+    }
+
+    .accordion-item[open] summary::after {
+      content: "-";
+      transform: rotate(180deg) scale(1.08);
+      background: rgba(58, 127, 240, 0.16);
+    }
+
+    .accordion-item[open] summary {
+      background: linear-gradient(180deg, rgba(238, 245, 255, 0.99), rgba(246, 250, 255, 0.99));
+      box-shadow: inset 0 -1px 0 rgba(58, 127, 240, 0.1);
+    }
+
+    .accordion-content {
+      padding: 4px 18px 18px;
+    }
+
+    .accordion-item[open] .accordion-content {
+      animation: accordionFadeIn 0.32s ease;
+    }
+
+    .table-frame {
+      margin-top: 18px;
+      overflow-x: auto;
+      border: 1px solid #e0eaf8;
+      border-radius: var(--radius-md);
+      background: var(--surface-strong);
+    }
+
+    .analysis-split {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .analysis-stack {
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) auto;
+      gap: 16px;
+      min-width: 0;
+      align-self: stretch;
+    }
+
+    .subtable-block {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      gap: 10px;
+      min-width: 0;
+      min-height: 0;
+    }
+
+    .subtable-title {
+      margin: 0;
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .compact-table-frame {
+      margin-top: 0;
+      width: 100%;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .compact-table {
+      width: 100%;
+      min-width: 0;
+      table-layout: fixed;
+      height: 100%;
+      font-size: 0.92rem;
+    }
+
+    .stats-table.compact-table {
+      min-width: 0;
+      width: 100%;
+    }
+
+    .compact-table th,
+    .compact-table td {
+      padding: 8px 8px;
+      white-space: normal;
+      word-break: break-word;
+      vertical-align: middle;
+    }
+
+    .compact-table thead th {
+      font-size: 0.74rem;
+      line-height: 1.25;
+    }
+
+    .compact-table th:first-child,
+    .compact-table td:first-child {
+      width: 20%;
+    }
+
+    .analysis-figure {
+      margin-top: 0;
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .analysis-figure .figure-caption {
+      padding: 0;
+      margin-top: 0;
+    }
+
+    .analysis-figure .media-frame {
+      margin-top: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .analysis-figure .media-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .analysis-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .setup-card {
+      border: 1px solid rgba(58, 127, 240, 0.11);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 18px 20px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .setup-card p + p {
+      margin-top: 12px;
+    }
+
+    .math-inline {
+      font-family: "Cambria Math", "Times New Roman", serif;
+      font-style: normal;
+      white-space: nowrap;
+    }
+
+    .math-var {
+      font-style: italic;
+    }
+
+    .math-roman {
+      font-style: normal;
+    }
+
+    .stats-table {
+      width: 100%;
+      min-width: 920px;
+      border-collapse: collapse;
+      font-size: 0.97rem;
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .stats-table th,
+    .stats-table td {
+      padding: 10px 12px;
+      border: 1px solid #dbe7f6;
+      text-align: center;
+    }
+
+    .stats-table thead th {
+      background: #edf4ff;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .stats-table tbody tr:nth-child(even) {
+      background: #f9fbff;
+    }
+
+    .stats-table tbody tr.ours {
+      background: #e8f1ff;
+    }
+
+    .agent-layout {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: minmax(280px, 1.05fr) minmax(280px, 1fr);
+      gap: 20px;
+      align-items: center;
+    }
+
+    .agent-layout-vertical {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .agent-text-card,
+    .info-card {
+      border: 1px solid rgba(58, 127, 240, 0.11);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.92);
+      padding: 20px 22px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    }
+
+    .info-card.plain-agent-card {
+      border: 0;
+      background: transparent;
+      padding: 0;
+      box-shadow: none;
+    }
+
+    .agent-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .agent-avatar {
+      width: 96px;
+      height: auto;
+      flex: 0 0 auto;
+      max-height: 96px;
+    }
+
+    .role-card {
+      padding: 24px 22px 22px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(246, 250, 255, 0.99));
+      border-color: rgba(58, 127, 240, 0.14);
+      box-shadow: 0 12px 28px rgba(41, 69, 118, 0.07);
+    }
+
+    .role-card .agent-header {
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .role-card h3 {
+      text-align: center;
+    }
+
+    .agent-text-card h3,
+    .info-card h3 {
+      margin: 0;
+      color: var(--accent);
+      font-size: 1.08rem;
+      line-height: 1.3;
+    }
+
+    .agent-text-card p,
+    .info-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .agent-speech-card {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      margin-top: 8px;
+    }
+
+    .agent-speech-avatar {
+      width: 82px;
+      height: auto;
+    }
+
+    .agent-speech-avatar img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .agent-voice-bubble {
+      position: relative;
+      border: 1px solid rgba(58, 127, 240, 0.13);
+      border-radius: 24px 24px 24px 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(246, 250, 255, 0.99));
+      padding: 22px 24px;
+      box-shadow: 0 14px 32px rgba(41, 69, 118, 0.07);
+    }
+
+    .agent-voice-bubble::before {
+      content: "";
+      position: absolute;
+      left: -10px;
+      top: 24px;
+      width: 18px;
+      height: 18px;
+      border-left: 1px solid rgba(58, 127, 240, 0.13);
+      border-bottom: 1px solid rgba(58, 127, 240, 0.13);
+      background: rgba(248, 251, 255, 0.98);
+      transform: rotate(45deg);
+    }
+
+    .agent-voice-bubble::after {
+      content: "\"";
+      position: absolute;
+      top: 6px;
+      right: 18px;
+      font-family: "Fraunces", serif;
+      font-size: 3rem;
+      line-height: 1;
+      color: rgba(58, 127, 240, 0.14);
+      pointer-events: none;
+    }
+
+    .agent-voice-bubble p {
+      margin: 0;
+      color: #3b5878;
+      line-height: 1.82;
+      text-indent: 0;
+    }
+
+    .dual-text-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .metrics-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .metric-card {
+      border: 1px solid rgba(58, 127, 240, 0.11);
+      border-radius: var(--radius-md);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(246, 250, 255, 0.97));
+      padding: 20px 22px;
+      display: grid;
+      gap: 10px;
+      min-height: 178px;
+    }
+
+    .metric-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .metric-title {
+      color: var(--muted);
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .metric-value {
+      color: var(--text);
+      font-size: clamp(1.35rem, 2.2vw, 2rem);
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    .metric-card.base-metric .metric-value {
+      font-family: "Fraunces", serif;
+      font-size: clamp(1.8rem, 2.8vw, 2.7rem);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .metric-card.reduction-metric .metric-value {
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      font-weight: 800;
+      line-height: 0.96;
+      letter-spacing: -0.07em;
+      font-variant-numeric: tabular-nums lining-nums;
+    }
+
+    .metric-card.time-metric .metric-value {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-family: "Manrope", sans-serif;
+    }
+
+    .metric-time-from {
+      color: rgba(49, 65, 78, 0.58);
+      font-size: 1.15rem;
+      font-weight: 600;
+      text-decoration: line-through;
+      text-decoration-thickness: 1px;
+    }
+
+    .metric-time-arrow {
+      color: rgba(58, 127, 240, 0.5);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .metric-time-to {
+      color: var(--accent);
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+
+    .metric-card.cost-metric .metric-value {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-family: "Fraunces", serif;
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    .metric-cost-unit {
+      color: var(--muted);
+      font-family: "Manrope", sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .metric-note {
+      color: var(--muted);
+      font-size: 0.96rem;
+      line-height: 1.7;
+    }
+
     .figure-caption {
       margin-top: 14px;
-      padding: 0 2em;
+      padding: 0 0.6em;
       color: var(--muted);
       font-size: 0.98rem;
       line-height: 1.8;
@@ -239,7 +840,7 @@
     .video-frame {
       aspect-ratio: 16 / 9;
       background:
-        linear-gradient(135deg, rgba(35, 41, 51, 0.95), rgba(79, 46, 33, 0.92)),
+        linear-gradient(135deg, rgba(36, 58, 92, 0.93), rgba(58, 127, 240, 0.88)),
         radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 40%);
     }
 
@@ -250,6 +851,28 @@
 
     .footer-space {
       height: 12px;
+    }
+
+    @keyframes accordionFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .js-motion .section-card {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+
+    .js-motion .section-card.is-visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     @media (max-width: 900px) {
@@ -268,8 +891,47 @@
         border-radius: 20px;
       }
 
-      .section-head {
+      .accordion-item summary {
+        padding: 14px 16px;
+        font-size: 0.96rem;
+      }
+
+      .agent-layout,
+      .analysis-split,
+      .dual-text-grid,
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metric-card {
+        min-height: 0;
+      }
+
+
+      .agent-speech-card {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .agent-speech-avatar {
+        width: 74px;
+        height: auto;
+      }
+
+      .agent-voice-bubble::before {
+        left: 22px;
+        top: -10px;
+        border-left: 1px solid rgba(58, 127, 240, 0.13);
+        border-top: 1px solid rgba(58, 127, 240, 0.13);
+        border-bottom: 0;
+      }
+
+      .agent-header {
         align-items: flex-start;
+      }
+
+      .role-card .agent-header {
+        align-items: center;
       }
 
       .authors {
@@ -280,7 +942,34 @@
       .section-card p {
         font-size: 0.97rem;
       }
+
+      .accordion-content {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .action-button,
+      .section-card,
+      .accordion-item[open] .accordion-content,
+      .media-frame img.zoomable-image,
+      .image-hover-preview,
+      .image-hover-preview-stage img {
+        animation: none;
+        transition: none;
+      }
+
+      .js-motion .section-card {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
   </style>
 </head>
 
@@ -289,7 +978,7 @@
     <header class="hero">
       <div class="hero-header">
         <div class="eyebrow">SatRMOT Dataset Project</div>
-        <h1>Towards Richer Referring Multi-Object Tracking in Satellite Videos: A Large Scale Dataset and Baseline</h1>
+          <h1>Towards Richer Referring Multi-Object Tracking in Satellite Videos: A Large-Scale Dataset and Baseline</h1>
         <p class="authors">
           <a href="https://orcid.org/0009-0007-1576-5232">Weiqing Lu</a><sup>1</sup>,
           <a href="https://orcid.org/0000-0002-7029-8784">Bin Sun</a><sup>1,*</sup>,
@@ -307,8 +996,14 @@
           <sup>*</sup>Corresponding author: Bin Sun
         </p>
         <div class="hero-actions">
-          <a class="action-button" href="https://drive.google.com/drive/folders/1-A3OCayj7rkqipqyBazzqf_reEPUCwU4?usp=drive_link" target="_blank" rel="noopener noreferrer">Google Drive</a>
-          <a class="action-button secondary" href="https://pan.baidu.com/s/15MTMySpSq9wH-pvrAuIRbw?pwd=psn3" target="_blank" rel="noopener noreferrer">Baidu Netdisk</a>
+          <a class="action-button" href="https://drive.google.com/drive/folders/1-A3OCayj7rkqipqyBazzqf_reEPUCwU4?usp=drive_link" target="_blank" rel="noopener noreferrer">
+            <span class="action-label">Download Dataset</span>
+            <span class="action-subtext">Google Drive</span>
+          </a>
+          <a class="action-button secondary" href="https://pan.baidu.com/s/15MTMySpSq9wH-pvrAuIRbw?pwd=psn3" target="_blank" rel="noopener noreferrer">
+            <span class="action-label">Download Dataset</span>
+            <span class="action-subtext">Baidu Netdisk</span>
+          </a>
         </div>
       </div>
     </header>
@@ -342,55 +1037,651 @@
         <div class="section-head">
           <h2>Category-wise Image Examples</h2>
         </div>
-        <div class="media-frame">
-          <img src="assets/examples.png" alt="Examples from four categories in the SatRMOT dataset">
+        <div class="media-frame plain-media">
+          <img class="zoomable-image" src="assets/examples.png" alt="Examples from four categories in the SatRMOT dataset">
         </div>
         <p class="figure-caption">
-          Category-wise image examples from SatRMOT. Each sample is annotated with a referring expression describing multiple targets using rich semantic cues, including object category, <span style="color: orange;">quantity</span>,
-          <span style="color: red;">motion</span>,
-          <span style="color: purple;">spatial location</span>, and
-          <span style="color: #32cd32;">structural context</span>.
+          Category-wise image examples from SatRMOT. Each sample is annotated with a referring expression describing multiple targets using rich semantic cues, including object category, <span style="color: #e1a83b;">quantity</span>,
+          <span style="color: #e46f7c;">motion</span>,
+          <span style="color: #c78ad8;">spatial location</span>, and
+          <span style="color: #55ba92;">structural context</span>.
         </p>
       </section>
-
       <section class="section-card">
         <div class="section-head">
           <h2>Dataset Statistics</h2>
         </div>
-        <div class="media-frame">
-          <img src="assets/3.png" alt="Dataset statistics for SatRMOT">
+        <div class="accordion-group">
+          <details class="accordion-item" open>
+            <summary>Global Statistics Overview</summary>
+            <div class="accordion-content">
+              <div class="media-frame plain-media">
+                <img src="assets/3.png" alt="Dataset statistics for SatRMOT">
+              </div>
+              <p class="figure-caption">
+                The overview of dataset statistics for SatRMOT. The central rings summarize global statistics across all videos, while the surrounding panels present category-wise distributions. These statistics highlight the large-scale nature of the dataset, as well as its rich expression complexity and diverse target characteristics across different object categories.
+              </p>
+            </div>
+          </details>
+
+          <details class="accordion-item" open>
+            <summary>Dataset Comparison and Additional Analysis</summary>
+            <div class="accordion-content">
+              <div class="table-frame">
+                <table class="stats-table">
+                  <thead>
+                    <tr>
+                      <th>Dataset</th>
+                      <th>Total expressions</th>
+                      <th>Vocabulary</th>
+                      <th>Total frames</th>
+                      <th>Total videos</th>
+                      <th>Expression length</th>
+                      <th>Category</th>
+                      <th>Targets</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Refer-KITTI</td>
+                      <td>818</td>
+                      <td>49</td>
+                      <td>6650</td>
+                      <td>18</td>
+                      <td>4.62</td>
+                      <td>2</td>
+                      <td>785</td>
+                    </tr>
+                    <tr>
+                      <td>Refer-KITTIv2</td>
+                      <td>9800</td>
+                      <td>617</td>
+                      <td>7162</td>
+                      <td>21</td>
+                      <td>6.54</td>
+                      <td>2</td>
+                      <td>932</td>
+                    </tr>
+                    <tr>
+                      <td>Refer-Dance</td>
+                      <td>1900</td>
+                      <td>25</td>
+                      <td>67300</td>
+                      <td>65</td>
+                      <td>7.6</td>
+                      <td>1</td>
+                      <td>692</td>
+                    </tr>
+                    <tr>
+                      <td>RefSat</td>
+                      <td>556</td>
+                      <td>80</td>
+                      <td>31130</td>
+                      <td>212</td>
+                      <td>6.15</td>
+                      <td><strong>4</strong></td>
+                      <td>4588</td>
+                    </tr>
+                    <tr class="ours">
+                      <td>RefTrackingSat (ours)</td>
+                      <td><strong>19463</strong></td>
+                      <td><strong>1313</strong></td>
+                      <td><strong>138137</strong></td>
+                      <td><strong>523</strong></td>
+                      <td><strong>13.73</strong></td>
+                      <td><strong>4</strong></td>
+                      <td><strong>21999</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="figure-caption">
+                Comparison with existing referring tracking datasets. SatRMOT contains substantially more expressions, a richer vocabulary, more videos and frames, and many more annotated targets than previous benchmarks.
+              </p>
+              <div class="analysis-split">
+                <div class="analysis-stack">
+                  <div class="subtable-block">
+                    <p class="subtable-title">Expressions by Category</p>
+                    <div class="table-frame compact-table-frame">
+                      <table class="stats-table compact-table">
+                        <thead>
+                          <tr>
+                            <th>RMOT-SV<br>Dataset</th>
+                            <th>Car</th>
+                            <th>Airplane</th>
+                            <th>Ship</th>
+                            <th>Train</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>RefSat</td>
+                            <td>5</td>
+                            <td>309</td>
+                            <td>178</td>
+                            <td>49</td>
+                          </tr>
+                          <tr class="ours">
+                            <td><strong>SatRMOT</strong></td>
+                            <td><strong>17850</strong></td>
+                            <td><strong>696</strong></td>
+                            <td><strong>832</strong></td>
+                            <td><strong>85</strong></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="subtable-block">
+                    <p class="subtable-title">Expression Attributes</p>
+                    <div class="table-frame compact-table-frame">
+                      <table class="stats-table compact-table">
+                        <thead>
+                          <tr>
+                            <th>RMOT-SV<br>Dataset</th>
+                            <th>Target<br>Quantity</th>
+                            <th>Motion<br>Direction</th>
+                            <th>Motion<br>Status</th>
+                            <th>Spatial<br>Location</th>
+                            <th>Structural<br>Context</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>RefSat</td>
+                            <td>×</td>
+                            <td>×</td>
+                            <td><strong>✓</strong></td>
+                            <td>×</td>
+                            <td>×</td>
+                          </tr>
+                          <tr class="ours">
+                            <td><strong>SatRMOT</strong></td>
+                            <td><strong>✓</strong></td>
+                            <td><strong>✓</strong></td>
+                            <td><strong>✓</strong></td>
+                            <td><strong>✓</strong></td>
+                            <td><strong>✓</strong></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <p class="analysis-note">
+                    Category-level expression counts and supported semantic attributes are summarized for RMOT-SV benchmarks.
+                  </p>
+                </div>
+
+                <div class="analysis-figure">
+                  <div class="media-frame">
+                    <img src="assets/1.png" alt="Additional analysis figure for dataset statistics">
+                  </div>
+                  <p class="figure-caption">
+                    Rich semantic coverage in SatRMOT expressions, including target quantity, motion patterns, spatial relations, direction cues, and diverse scene context.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </details>
         </div>
-        <p class="figure-caption">
-          The overview of dataset statistics for SatRMOT. The central rings summarize global statistics across all videos, while the surrounding panels present category-wise distributions. These statistics highlight the large-scale nature of the dataset, as well as its rich expression complexity and diverse target characteristics across different object categories.
-        </p>
       </section>
 
       <section class="section-card">
         <div class="section-head">
-          <h2>Semi-Automatic Multi-Agent Framework for Rich Semantic Annotation</h2>
+          <h2>Multi-Agent Rich Referring Annotations</h2>
         </div>
-        <div class="media-frame">
-          <img src="assets/multi-agent.png" alt="Multi-agent annotation framework">
+        <div class="accordion-group">
+          <details class="accordion-item" open>
+            <summary>Overview</summary>
+            <div class="accordion-content">
+              <div class="media-frame plain-media">
+                <img src="assets/multi-agent.png" alt="Multi-agent annotation framework">
+              </div>
+              <p class="figure-caption">
+                The overview of the proposed semi-automatic multi-agent framework for generating rich referring expressions in satellite videos. The pipeline coordinates multiple agents, including SCAP for global scene captioning, SEER for semantic entity extraction, CORE for context-aware referring expression generation, and AUTOLE for automated linguistic expansion, together with human-in-the-loop verification to ensure semantic correctness and annotation quality.
+              </p>
+            </div>
+          </details>
+
+          <details class="accordion-item" open>
+            <summary>SCAP Agent</summary>
+            <div class="accordion-content">
+              <div class="agent-layout">
+                <div class="media-frame plain-media">
+                  <img src="assets/5.png" alt="SCAP agent overview">
+                </div>
+                <div class="agent-speech-card">
+                  <div class="agent-speech-avatar">
+                    <img src="assets/SCAP.png" alt="SCAP agent portrait">
+                  </div>
+                  <div class="agent-voice-bubble">
+                    <p>
+                      I am the SCAP agent, and my workflow is illustrated in the figure on the left. I process a satellite video by first splitting it into a sequence of temporal clips. For the opening clip, I generate an initial caption to capture the overall scene layout and target distribution. I then compare consecutive clips and produce differential descriptions that reflect how objects move and evolve over time. By progressively accumulating these intermediate observations, I finally build a coherent scene-level summary that provides a concise and temporally consistent understanding of the full video.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="accordion-item" open>
+            <summary>SEER Agent</summary>
+            <div class="accordion-content">
+              <div class="agent-layout agent-layout-vertical">
+                <div class="media-frame plain-media">
+                  <img src="assets/4.png" alt="SEER agent overview">
+                </div>
+                <div class="agent-speech-card">
+                  <div class="agent-speech-avatar">
+                    <img src="assets/SEER.png" alt="SEER agent portrait">
+                  </div>
+                  <div class="agent-voice-bubble">
+                    <p>
+                      I am the SEER agent, and my workflow is illustrated in the figure above. Starting from MOT annotations such as object IDs, bounding boxes, and category labels, I parse them into structured motion semantics. In this process, I iteratively call four specialized tools: <strong>Kalman Filtering</strong> to smooth trajectories, <strong>Direction-Angle Computation</strong> to infer motion direction and turning behavior, <strong>DBSCAN Clustering</strong> to group targets with similar dynamics, and <strong>Motion-Region Estimation</strong> to determine where each target moves within the scene. From these analyses, I construct motion profiles that describe each target in terms of its motion pattern, direction, speed, and region. Whenever multiple targets exhibit consistent motion behaviors, I automatically associate them into unified groups, enabling coherent multi-object descriptions grounded in their trajectories.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+          <details class="accordion-item" open>
+            <summary>CORE Agent</summary>
+            <div class="accordion-content">
+              <div class="info-card plain-agent-card">
+                <div class="agent-speech-card">
+                  <div class="agent-speech-avatar">
+                    <img src="assets/CORE.png" alt="CORE agent portrait">
+                  </div>
+                  <div class="agent-voice-bubble">
+                    <p>
+                      I am the CORE agent. My role is to turn structured target attributes and global scene context into concise referring expressions. For each target, I combine its category, spatial region, motion pattern, and quantity with the overall scene description, then write a precise natural language query tailored for referring multi-object tracking. Controlled generation helps me keep every expression accurate, compact, and consistent with the surrounding context. In this way, I produce semantically grounded descriptions that bridge low-level motion cues and high-level language understanding.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="accordion-item" open>
+            <summary>AUTOLE Agent</summary>
+            <div class="accordion-content">
+              <div class="info-card plain-agent-card">
+                <div class="agent-speech-card">
+                  <div class="agent-speech-avatar">
+                    <img src="assets/AUTOLE.png" alt="AUTOLE agent portrait">
+                  </div>
+                  <div class="agent-voice-bubble">
+                    <p>
+                      I am the AutoLE agent. My role is to refine existing referring expressions by generating multiple linguistically diverse variants while preserving their original structure and meaning. For each input expression, I produce alternative phrasings that broaden the language space while keeping key cues such as motion, region, and object identity intact. In this way, I enrich the supervision signals used for referring multi-object tracking without changing the underlying semantics of the original descriptions.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="accordion-item" open>
+            <summary>Efficiency Advantages</summary>
+            <div class="accordion-content">
+              <div class="metrics-grid">
+                <div class="metric-card base-metric">
+                  <span class="metric-icon">LLM</span>
+                  <div class="metric-title">Base Model</div>
+                  <div class="metric-value">Gemini-3-Pro</div>
+                  <div class="metric-note">Foundation model used to power the multi-agent annotation pipeline.</div>
+                </div>
+                <div class="metric-card reduction-metric">
+                  <span class="metric-icon">AUTO</span>
+                  <div class="metric-title">Human Effort</div>
+                  <div class="metric-value">-80%</div>
+                  <div class="metric-note">The framework reduces manual annotation effort by about 80 percent.</div>
+                </div>
+                <div class="metric-card time-metric">
+                  <span class="metric-icon">TIME</span>
+                  <div class="metric-title">Time per Expression</div>
+                  <div class="metric-value">
+                    <span class="metric-time-from">13 min</span>
+                    <span class="metric-time-arrow">to</span>
+                    <span class="metric-time-to">4 min</span>
+                  </div>
+                  <div class="metric-note">Average annotation time is shortened substantially for each referring expression.</div>
+                </div>
+                <div class="metric-card cost-metric">
+                  <span class="metric-icon">COST</span>
+                  <div class="metric-title">API Cost</div>
+                  <div class="metric-value">
+                    <span>$0.0393</span>
+                    <span class="metric-cost-unit">/ expression</span>
+                  </div>
+                  <div class="metric-note">Only a very small API cost is incurred for each expression in the pipeline.</div>
+                </div>
+              </div>
+            </div>
+          </details>
         </div>
-        <p class="figure-caption">
-          The overview of the proposed semi-automatic multi-agent framework for generating rich referring expressions in satellite videos. The pipeline coordinates multiple agents, including SCAP for global scene captioning, SEER for semantic entity extraction, CORE for context-aware referring expression generation, and AUTOLE for automated linguistic expansion, together with human-in-the-loop verification to ensure semantic correctness and annotation quality.
-        </p>
       </section>
 
       <section class="section-card">
         <div class="section-head">
-          <h2>DRTrack</h2>
+          <h2>Method Overview</h2>
         </div>
-        <div class="media-frame">
+        <div class="media-frame plain-media">
           <img src="assets/method.png" alt="DRTrack method overview">
         </div>
         <p class="figure-caption">
           The overview of DRTrack, a dual-refinement framework that enhances both visual and linguistic representations for referring multi-object tracking. It incorporates a Scale-aware Visual Refinement (SVR) module for multi-scale visual enhancement and a Linguistic-Conditioned Refinement (LCR) Decoder for language-guided query refinement, enabling accurate grounding and robust tracking in complex satellite scenes.
         </p>
       </section>
+
+      <section class="section-card">
+        <div class="section-head">
+          <h2>Experiments</h2>
+        </div>
+        <div class="accordion-group">
+          <details class="accordion-item" open>
+            <summary>Comparison with Existing Methods</summary>
+            <div class="accordion-content">
+              <div class="table-frame">
+                <table class="stats-table">
+                  <thead>
+                    <tr>
+                      <th>Method</th>
+                      <th>HOTA</th>
+                      <th>DetA</th>
+                      <th>AssA</th>
+                      <th>DetRe</th>
+                      <th>DetPr</th>
+                      <th>AssRe</th>
+                      <th>AssPr</th>
+                      <th>LocA</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>iKUN [3]</td>
+                      <td>12.86</td>
+                      <td>3.67</td>
+                      <td>46.08</td>
+                      <td>7.03</td>
+                      <td>7.11</td>
+                      <td>52.47</td>
+                      <td>80.56</td>
+                      <td>68.07</td>
+                    </tr>
+                    <tr>
+                      <td>TransRMOT [31]</td>
+                      <td>21.56</td>
+                      <td>9.19</td>
+                      <td>50.61</td>
+                      <td>17.06</td>
+                      <td>16.61</td>
+                      <td>60.13</td>
+                      <td>75.17</td>
+                      <td>74.98</td>
+                    </tr>
+                    <tr>
+                      <td>TempRMOT [36]</td>
+                      <td>23.32</td>
+                      <td>11.15</td>
+                      <td>48.78</td>
+                      <td>21.05</td>
+                      <td>19.17</td>
+                      <td>59.06</td>
+                      <td>76.12</td>
+                      <td>74.63</td>
+                    </tr>
+                    <tr>
+                      <td>DKGTrack [12]</td>
+                      <td>25.63</td>
+                      <td>12.79</td>
+                      <td>51.39</td>
+                      <td>24.68</td>
+                      <td>20.97</td>
+                      <td>60.61</td>
+                      <td>75.49</td>
+                      <td>75.01</td>
+                    </tr>
+                    <tr class="ours">
+                      <td><strong>DRTrack (Ours)</strong></td>
+                      <td>31.23</td>
+                      <td>18.85</td>
+                      <td>51.78</td>
+                      <td>31.08</td>
+                      <td>32.39</td>
+                      <td>62.07</td>
+                      <td>76.57</td>
+                      <td>75.48</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+
+          <details class="accordion-item" open>
+            <summary>Implementation Details</summary>
+            <div class="accordion-content">
+              <div class="setup-card">
+                <p>
+                  During training, the text encoder remains fixed and only the rest of the network is updated. We optimize the model with AdamW, start from an initial learning rate of <span class="math-inline">1 &times; 10<sup>-4</sup></span>, and reduce it by a factor of <span class="math-inline">10</span> after the 40th epoch. For the objective design, the loss weights are set as <span class="math-inline"><span class="math-var">&alpha;</span><sub><span class="math-roman">cls</span></sub> = 5</span>, <span class="math-inline"><span class="math-var">&alpha;</span><sub><span class="math-roman">box</span></sub> = 2</span>, <span class="math-inline"><span class="math-var">&alpha;</span><sub><span class="math-roman">giou</span></sub> = 2</span>, and <span class="math-inline"><span class="math-var">&alpha;</span><sub><span class="math-roman">ref</span></sub> = 2</span>. In the post-filtering stage, we keep target boxes with a confidence threshold of <span class="math-inline">0.3</span> and use a referring matching threshold of <span class="math-inline">0.4</span>.
+                </p>
+              </div>
+            </div>
+          </details>
+
+          <details class="accordion-item" open>
+            <summary>Qualitative Results on Cars</summary>
+            <div class="accordion-content">
+              <div class="media-frame plain-media">
+                <img class="zoomable-image" src="assets/car.png" alt="Qualitative visualization results for the car category">
+              </div>
+              <p class="figure-caption">
+                Qualitative visualization results for the car category. Groundtruth boxes are shown in yellow. Predicted boxes are drawn in red for cars.
+              </p>
+            </div>
+          </details>
+
+          <details class="accordion-item" open>
+            <summary>Qualitative Results on Airplanes</summary>
+            <div class="accordion-content">
+              <div class="media-frame plain-media">
+                <img class="zoomable-image" src="assets/airplane.png" alt="Qualitative visualization results for the airplane category">
+              </div>
+              <p class="figure-caption">
+                Qualitative visualization results for the airplane category. Groundtruth boxes are shown in yellow. Predicted boxes are drawn in blue for airplanes.
+              </p>
+            </div>
+          </details>
+
+          <details class="accordion-item" open>
+            <summary>Qualitative Results on Ships</summary>
+            <div class="accordion-content">
+              <div class="media-frame plain-media">
+                <img class="zoomable-image" src="assets/ship.png" alt="Qualitative visualization results for the ship category">
+              </div>
+              <p class="figure-caption">
+                Qualitative visualization results for the ship category. Groundtruth boxes are shown in yellow. Predicted boxes are drawn in green for ships.
+              </p>
+            </div>
+          </details>
+        </div>
+      </section>
     </main>
 
     <div class="footer-space"></div>
   </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var sections = document.querySelectorAll(".section-card");
+      var zoomableImages = document.querySelectorAll(".zoomable-image");
+      var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var supportsHoverPreview = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+      var hoverPreview = document.createElement("div");
+      var hoverPreviewShell = document.createElement("div");
+      var hoverPreviewStage = document.createElement("div");
+      var hoverPreviewImage = document.createElement("img");
+      var previewState = {
+        active: false,
+        stageSize: 272,
+        scale: 1,
+        imageWidth: 0,
+        imageHeight: 0,
+        translateX: 0,
+        translateY: 0,
+        minX: 0,
+        maxX: 0,
+        minY: 0,
+        maxY: 0
+      };
+
+      hoverPreview.className = "image-hover-preview";
+      hoverPreviewShell.className = "image-hover-preview-shell";
+      hoverPreviewStage.className = "image-hover-preview-stage";
+
+      hoverPreviewStage.appendChild(hoverPreviewImage);
+      hoverPreviewShell.appendChild(hoverPreviewStage);
+      hoverPreview.appendChild(hoverPreviewShell);
+      document.body.appendChild(hoverPreview);
+
+      function clamp(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+      }
+
+      function applyPreviewTransform() {
+        hoverPreviewImage.style.transform = "translate(" + previewState.translateX + "px, " + previewState.translateY + "px) scale(" + previewState.scale + ")";
+      }
+
+      function updatePreviewBounds() {
+        var scaledWidth = previewState.imageWidth * previewState.scale;
+        var scaledHeight = previewState.imageHeight * previewState.scale;
+
+        previewState.minX = Math.min(0, previewState.stageSize - scaledWidth);
+        previewState.maxX = 0;
+        previewState.minY = Math.min(0, previewState.stageSize - scaledHeight);
+        previewState.maxY = 0;
+        previewState.translateX = clamp(previewState.translateX, previewState.minX, previewState.maxX);
+        previewState.translateY = clamp(previewState.translateY, previewState.minY, previewState.maxY);
+      }
+
+      function positionHoverPreview(clientX, clientY) {
+        var offset = 22;
+        var previewWidth = hoverPreview.offsetWidth || 300;
+        var previewHeight = hoverPreview.offsetHeight || 330;
+        var left = clientX + offset;
+        var top = clientY + offset;
+
+        if (left + previewWidth > window.innerWidth - 12) {
+          left = clientX - previewWidth - offset;
+        }
+
+        if (top + previewHeight > window.innerHeight - 12) {
+          top = clientY - previewHeight - offset;
+        }
+
+        left = clamp(left, 12, Math.max(12, window.innerWidth - previewWidth - 12));
+        top = clamp(top, 12, Math.max(12, window.innerHeight - previewHeight - 12));
+
+        hoverPreview.style.transform = "translate3d(" + left + "px, " + top + "px, 0)";
+      }
+
+      function openHoverPreview(image, event) {
+        var rect = image.getBoundingClientRect();
+        var localX = event.clientX - rect.left;
+        var localY = event.clientY - rect.top;
+        var cropDiameter = 30;
+
+        previewState.stageSize = hoverPreviewStage.clientWidth;
+        previewState.imageWidth = rect.width;
+        previewState.imageHeight = rect.height;
+        previewState.scale = previewState.stageSize / cropDiameter;
+        previewState.translateX = previewState.stageSize / 2 - (localX * previewState.scale);
+        previewState.translateY = previewState.stageSize / 2 - (localY * previewState.scale);
+        previewState.active = true;
+
+        hoverPreviewImage.src = image.currentSrc || image.src;
+        hoverPreviewImage.alt = image.alt || "Hover zoom preview";
+        hoverPreviewImage.style.width = previewState.imageWidth + "px";
+        hoverPreviewImage.style.height = previewState.imageHeight + "px";
+        hoverPreviewImage.style.transformOrigin = "0 0";
+
+        updatePreviewBounds();
+        applyPreviewTransform();
+        positionHoverPreview(event.clientX, event.clientY);
+        hoverPreview.classList.add("is-open");
+      }
+
+      function updateHoverPreview(image, event) {
+        if (!previewState.active) {
+          return;
+        }
+
+        var rect = image.getBoundingClientRect();
+        var localX = clamp(event.clientX - rect.left, 0, rect.width);
+        var localY = clamp(event.clientY - rect.top, 0, rect.height);
+
+        previewState.translateX = previewState.stageSize / 2 - (localX * previewState.scale);
+        previewState.translateY = previewState.stageSize / 2 - (localY * previewState.scale);
+        updatePreviewBounds();
+        applyPreviewTransform();
+        positionHoverPreview(event.clientX, event.clientY);
+      }
+
+      function closeHoverPreview() {
+        hoverPreview.classList.remove("is-open");
+        previewState.active = false;
+      }
+
+      if (supportsHoverPreview) {
+        zoomableImages.forEach(function (image) {
+          image.addEventListener("mouseenter", function (event) {
+            openHoverPreview(image, event);
+          });
+
+          image.addEventListener("mousemove", function (event) {
+            updateHoverPreview(image, event);
+          });
+
+          image.addEventListener("mouseleave", function () {
+            closeHoverPreview();
+          });
+        });
+      }
+
+      if (prefersReducedMotion) {
+        sections.forEach(function (section) {
+          section.classList.add("is-visible");
+        });
+        return;
+      }
+
+      document.documentElement.classList.add("js-motion");
+
+      if (!("IntersectionObserver" in window)) {
+        sections.forEach(function (section) {
+          section.classList.add("is-visible");
+        });
+        return;
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.03,
+        rootMargin: "0px 0px 24px 0px"
+      });
+
+      sections.forEach(function (section, index) {
+        section.style.transitionDelay = index === 0 ? "0ms" : "80ms";
+        observer.observe(section);
+      });
+    });
+  </script>
 </body>
 </html>
