@@ -121,8 +121,15 @@
       font-size: 1rem;
     }
 
+    .corresponding-note {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
     .hero-actions {
-      margin-top: 22px;
+      margin-top: 18px;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
@@ -150,6 +157,17 @@
       transform: translateY(-1px);
       box-shadow: 0 14px 28px rgba(139, 46, 29, 0.26);
       opacity: 0.96;
+    }
+
+    .action-button.secondary {
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--accent);
+      border: 1px solid rgba(139, 46, 29, 0.24);
+      box-shadow: 0 10px 24px rgba(67, 49, 30, 0.08);
+    }
+
+    .action-button.secondary:hover {
+      box-shadow: 0 14px 28px rgba(67, 49, 30, 0.12);
     }
 
     main {
@@ -273,20 +291,24 @@
         <div class="eyebrow">SatRMOT Dataset Project</div>
         <h1>Towards Richer Referring Multi-Object Tracking in Satellite Videos: A Large Scale Dataset and Baseline</h1>
         <p class="authors">
-          <a href="https://openreview.net/profile?id=%7EWeiqing_Lu2">Weiqing Lu</a><sup>1</sup>,
-          <a href="https://scholar.google.com/citations?user=lmVsnBsAAAAJ&hl=zh-CN">Bin Sun</a><sup>1</sup>,
-          <a href="https://scholar.google.com/citations?user=KT4fQP0AAAAJ&hl=zh-CN">Fuyan Ma</a><sup>2</sup>,
-          <a href="https://openreview.net/profile?id=%7EFuhua_Zhang2">Fuhua Zhang</a><sup>1</sup>,
-          <a href="https://openreview.net/profile?id=~Hu_Guo1">Hu Guo</a><sup>1</sup>,
-          <a href="https://scholar.google.com/citations?user=PlBq8n8AAAAJ&hl=zh-CN">Shutao Li</a><sup>1</sup>
+          <a href="https://orcid.org/0009-0007-1576-5232">Weiqing Lu</a><sup>1</sup>,
+          <a href="https://orcid.org/0000-0002-7029-8784">Bin Sun</a><sup>1,*</sup>,
+          <a href="https://orcid.org/0000-0003-0483-8866">Fuyan Ma</a><sup>2</sup>,
+          <a href="https://orcid.org/0000-0003-2351-4461">Leyuan Fang</a><sup>1</sup>,
+          <a href="https://orcid.org/0000-0002-3807-2531">Xudong Kang</a><sup>1</sup>,
+          <a href="https://orcid.org/0000-0002-0585-9848">Shutao Li</a><sup>1</sup>
         </p>
         <p class="affiliations">
-          <sup>1</sup>School of Artificial Intelligence and Robotics, Hunan University
+          <sup>1</sup>School of Artificial Intelligence and Robotics, Hunan University, Changsha, Hunan, China
           <br>
-          <sup>2</sup>Xiangya Hospital, Central South University
+          <sup>2</sup>Xiangya Hospital, Central South University, Changsha, Hunan, China
+        </p>
+        <p class="corresponding-note">
+          <sup>*</sup>Corresponding author: Bin Sun
         </p>
         <div class="hero-actions">
-          <a class="action-button" href="https://drive.google.com/drive/folders/1-A3OCayj7rkqipqyBazzqf_reEPUCwU4?usp=drive_link">Download Dataset</a>
+          <a class="action-button" href="https://drive.google.com/drive/folders/1-A3OCayj7rkqipqyBazzqf_reEPUCwU4?usp=drive_link" target="_blank" rel="noopener noreferrer">Google Drive</a>
+          <a class="action-button secondary" href="https://pan.baidu.com/s/15MTMySpSq9wH-pvrAuIRbw?pwd=psn3" target="_blank" rel="noopener noreferrer">Baidu Netdisk</a>
         </div>
       </div>
     </header>
@@ -297,26 +319,8 @@
           <h2>Abstract</h2>
         </div>
         <p class="abstract-text">
-              Referring Multi-Object Tracking in satellite videos (RMOT-SV) aims to
-    track multiple targets in remote sensing imagery using natural language
-    descriptions. Existing benchmarks remain limited in scale and
-    annotation diversity, with short and simple expressions that provide
-    insufficient support for complex scenarios involving multiple tiny objects.
-    To address these limitations, we present SatRMOT, the largest and most
-    diverse benchmark for referring multi-object tracking in satellite videos.
-    SatRMOT is characterized by three key properties: (i) larger scale, with
-    523 videos, 138k frames, and 19k referring expressions, substantially
-    exceeding existing satellite RMOT benchmarks; (ii) richer expressions,
-    where each video is annotated with diverse natural language descriptions
-    involving motion patterns, spatial relations, and contextual cues; and
-    (iii) multi-object referring for tiny targets, where expressions
-    frequently describe multiple small objects, particularly cars, in dense and
-    complex satellite scenes. A multi-agent collaborative framework is
-    developed to enable scalable and high-quality annotation with reduced human
-    labor and time costs. Building upon this dataset, we propose Dual
-    Refinement Track (DRTrack), a strong baseline for RMOT-SV that performs
-    joint visual-linguistic refinement. Extensive experiments demonstrate the
-    challenging nature of our dataset and the effectiveness of our method.
+          Referring Multi-Object Tracking in satellite videos (RMOT-SV) aims to track multiple targets in remote sensing images using natural language descriptions, yet remains underexplored due to the lack of large scale and expressive datasets. Existing benchmarks are limited in scale, category diversity, and annotation richness, typically focusing on a few object classes with short and simple expressions. To address these limitations, we present SatRMOT, a large scale dataset for referring multi-object tracking in satellite videos, comprising 523 videos, 138k frames, and 19k referring expressions across four categories, with extensive annotations of tiny objects, particularly cars. A multi-agent collaborative framework is developed to enable richer annotations with multi-object descriptions, longer expressions, and fine-grained semantics involving motion, spatial relations, and contextual cues. Building upon this dataset, we propose Dual Refinement Track (DRTrack), which performs joint refinement in both visual and linguistic domains to better align small-object representations with rich referring expressions. Extensive experiments demonstrate the challenging nature of our dataset and the effectiveness of our method.
+        </p>
       </section>
 
       <section class="section-card">
