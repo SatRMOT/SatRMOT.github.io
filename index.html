@@ -395,6 +395,62 @@
       background: var(--surface-strong);
     }
 
+    .category-comparison-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+
+    .category-table-frame {
+      margin-top: 0;
+      overflow-x: auto;
+    }
+
+    .category-table {
+      width: 100%;
+      min-width: 430px;
+      table-layout: fixed;
+      font-size: 0.94rem;
+    }
+
+    .category-table th,
+    .category-table td {
+      padding: 10px 9px;
+      vertical-align: middle;
+    }
+
+    .category-table th:first-child,
+    .category-table td:first-child {
+      width: 22%;
+    }
+
+    .category-table th:nth-child(2),
+    .category-table td:nth-child(2) {
+      width: 30%;
+    }
+
+    .category-name-cell {
+      color: #33414d;
+      font-weight: 700;
+      background: rgba(249, 252, 255, 0.78);
+    }
+
+    .cross-dataset-stack {
+      margin-top: 18px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .cross-dataset-stack .subtable-title {
+      padding-left: 2px;
+    }
+
+    .cross-dataset-stack .table-frame {
+      margin-top: 0;
+    }
+
     .analysis-split {
       margin-top: 18px;
       display: grid;
@@ -555,6 +611,22 @@
       background: #e8f1ff;
     }
 
+    .stats-table.category-table {
+      min-width: 430px;
+      table-layout: fixed;
+      font-size: 0.94rem;
+    }
+
+    .stats-table.category-table th,
+    .stats-table.category-table td {
+      padding: 10px 9px;
+      vertical-align: middle;
+    }
+
+    .stats-table.cross-dataset-table {
+      min-width: 1040px;
+    }
+
     .agent-layout {
       margin-top: 18px;
       display: grid;
@@ -567,6 +639,14 @@
       grid-template-columns: 1fr;
       gap: 16px;
       align-items: start;
+    }
+
+    .agent-figure-block {
+      min-width: 0;
+    }
+
+    .agent-figure-block .figure-caption {
+      padding: 0;
     }
 
     .agent-text-card,
@@ -973,6 +1053,7 @@
       .agent-layout,
       .analysis-split,
       .dual-text-grid,
+      .category-comparison-grid,
       .metrics-grid {
         grid-template-columns: 1fr;
       }
@@ -1091,6 +1172,17 @@
 
       <section class="section-card">
         <div class="section-head">
+          <h2>Data Sources</h2>
+        </div>
+        <div class="setup-card">
+          <p>
+            SatRMOT re-annotates and extends public satellite MOT datasets, including SatVideoDT, SatMTB-MOT, AIR-MOT, and VISO. The original image sequences were captured by Jilin-1 03 satellites across diverse regions worldwide, including China, the USA, Mexico, France, Italy, Spain, Australia, Japan, Turkey, India, Thailand, Saudi Arabia, and the United Arab Emirates (UAE), between 2017 and 2021. All sequences are represented in true color using spectral channels B1 (580-723 nm), B2 (489-585 nm), and B3 (437-512 nm), with a spatial resolution of 0.92 m at the sub-satellite point. Each video covers an area of approximately 11 km × 4.6 km and is recorded at 10 FPS.
+          </p>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <div class="section-head">
           <h2>Category-wise Video Examples</h2>
         </div>
         <div class="media-frame video-frame">
@@ -1112,12 +1204,25 @@
           <img class="zoomable-image" src="assets/examples.png" alt="Examples from four categories in the SatRMOT dataset">
         </div>
         <p class="figure-caption">
-          Category-wise image examples from SatRMOT. Each sample is annotated with a referring expression describing multiple targets using rich semantic cues, including object category, <span style="color: #e1a83b;">quantity</span>,
+          <strong>Figure 1.</strong> Category-wise image examples from SatRMOT. Each sample is annotated with a referring expression describing multiple targets using rich semantic cues, including object category, <span style="color: #e1a83b;">quantity</span>,
           <span style="color: #e46f7c;">motion</span>,
           <span style="color: #c78ad8;">spatial location</span>, and
           <span style="color: #55ba92;">structural context</span>.
         </p>
       </section>
+
+      <section class="section-card">
+        <div class="section-head">
+          <h2>Expression Diversity Matters</h2>
+        </div>
+        <div class="media-frame plain-media">
+          <img class="zoomable-image" src="assets/102.png" alt="DRTrack responses to the same satellite image under different attribute-rich referring expressions">
+        </div>
+        <p class="figure-caption">
+          <strong>Figure 2.</strong> DRTrack responses to the same satellite image under referring expressions with different attributes. The response maps shift toward different visual regions as the language changes, showing why SatRMOT emphasizes diverse annotations that cover category, quantity, motion, direction, and spatial cues rather than a single coarse description.
+        </p>
+      </section>
+
       <section class="section-card">
         <div class="section-head">
           <h2>Dataset Statistics</h2>
@@ -1130,7 +1235,7 @@
                 <img src="assets/3.png" alt="Dataset statistics for SatRMOT">
               </div>
               <p class="figure-caption">
-                The overview of dataset statistics for SatRMOT. The central rings summarize global statistics across all videos, while the surrounding panels present category-wise distributions. These statistics highlight the large-scale nature of the dataset, as well as its rich expression complexity and diverse target characteristics across different object categories.
+                <strong>Figure 3.</strong> The overview of dataset statistics for SatRMOT. The central rings summarize global statistics across all videos, while the surrounding panels present category-wise distributions. These statistics highlight the large-scale nature of the dataset, as well as its rich expression complexity and diverse target characteristics across different object categories.
               </p>
             </div>
           </details>
@@ -1207,12 +1312,12 @@
                 </table>
               </div>
               <p class="figure-caption">
-                Comparison with existing referring tracking datasets. SatRMOT contains substantially more expressions, a richer vocabulary, more videos and frames, and many more annotated targets than previous benchmarks.
+                <strong>Table 1.</strong> Comparison with existing referring tracking datasets. SatRMOT contains substantially more expressions, a richer vocabulary, more videos and frames, and many more annotated targets than previous benchmarks.
               </p>
               <div class="analysis-split">
                 <div class="analysis-stack">
                   <div class="subtable-block">
-                    <p class="subtable-title">Expressions by Category</p>
+                    <p class="subtable-title">Table 2. Expressions by Category</p>
                     <div class="table-frame compact-table-frame">
                       <table class="stats-table compact-table">
                         <thead>
@@ -1245,7 +1350,7 @@
                   </div>
 
                   <div class="subtable-block">
-                    <p class="subtable-title">Expression Attributes</p>
+                    <p class="subtable-title">Table 3. Expression Attributes</p>
                     <div class="table-frame compact-table-frame">
                       <table class="stats-table compact-table">
                         <thead>
@@ -1290,7 +1395,7 @@
                     <img src="assets/1.png" alt="Additional analysis figure for dataset statistics">
                   </div>
                   <p class="figure-caption">
-                  Rich semantic coverage in SatRMOT expressions, including target cardinality, motion patterns, spatial relations, direction cues, and diverse scene context.
+                    <strong>Figure 4.</strong> Rich semantic coverage in SatRMOT expressions, including target cardinality, motion patterns, spatial relations, direction cues, and diverse scene context.
                   </p>
                 </div>
               </div>
@@ -1311,7 +1416,19 @@
                 <img src="assets/multi-agent.png" alt="Multi-agent annotation framework">
               </div>
               <p class="figure-caption">
-                The overview of the proposed semi-automatic multi-agent framework for generating rich referring expressions in satellite videos. The pipeline coordinates multiple agents, including SCAP for global scene captioning, SEER for semantic entity extraction, CORE for context-aware referring expression generation, and AUTOLE for automated linguistic expansion, together with human-in-the-loop verification to ensure semantic correctness and annotation quality.
+                <strong>Figure 5.</strong> The overview of the proposed semi-automatic multi-agent framework for generating rich referring expressions in satellite videos. The pipeline coordinates multiple agents, including SCAP for global scene captioning, SEER for semantic entity extraction, CORE for context-aware referring expression generation, and AUTOLE for automated linguistic expansion, together with human-in-the-loop verification to ensure semantic correctness and annotation quality.
+              </p>
+            </div>
+          </details>
+
+          <details class="accordion-item" open>
+            <summary>Human-in-the-Loop Correction</summary>
+            <div class="accordion-content">
+              <div class="media-frame plain-media">
+                <img class="zoomable-image" src="assets/101.png" alt="Failure cases from the annotation assistant corrected through human-in-the-loop verification">
+              </div>
+              <p class="figure-caption">
+                <strong>Figure 6.</strong> Failure cases produced by the annotation assistant and corrected through human-in-the-loop verification. Human review fixes inaccurate target grounding and expression mismatches, preserving the scalability of the multi-agent pipeline while keeping the final referring annotations reliable.
               </p>
             </div>
           </details>
@@ -1320,8 +1437,13 @@
             <summary>SCAP Agent</summary>
             <div class="accordion-content">
               <div class="agent-layout">
-                <div class="media-frame plain-media">
-                  <img src="assets/5.png" alt="SCAP agent overview">
+                <div class="agent-figure-block">
+                  <div class="media-frame plain-media">
+                    <img src="assets/5.png" alt="SCAP agent overview">
+                  </div>
+                  <p class="figure-caption">
+                    <strong>Figure 7.</strong> SCAP agent workflow for constructing temporally coherent scene captions from satellite video clips.
+                  </p>
                 </div>
                 <div class="agent-speech-card">
                   <div class="agent-speech-avatar">
@@ -1329,7 +1451,7 @@
                   </div>
                   <div class="agent-voice-bubble">
                     <p>
-                      I am the SCAP agent, and my workflow is illustrated in the figure on the left. I process a satellite video by first splitting it into a sequence of temporal clips. For the opening clip, I generate an initial caption to capture the overall scene layout and target distribution. I then compare consecutive clips and produce differential descriptions that reflect how objects move and evolve over time. By progressively accumulating these intermediate observations, I finally build a coherent scene-level summary that provides a concise and temporally consistent understanding of the full video.
+                      I am the SCAP agent, and my workflow is illustrated in Figure 7 on the left. I process a satellite video by first splitting it into a sequence of temporal clips. For the opening clip, I generate an initial caption to capture the overall scene layout and target distribution. I then compare consecutive clips and produce differential descriptions that reflect how objects move and evolve over time. By progressively accumulating these intermediate observations, I finally build a coherent scene-level summary that provides a concise and temporally consistent understanding of the full video.
                     </p>
                   </div>
                 </div>
@@ -1341,8 +1463,13 @@
             <summary>SEER Agent</summary>
             <div class="accordion-content">
               <div class="agent-layout agent-layout-vertical">
-                <div class="media-frame plain-media">
-                  <img src="assets/4.png" alt="SEER agent overview">
+                <div class="agent-figure-block">
+                  <div class="media-frame plain-media">
+                    <img src="assets/4.png" alt="SEER agent overview">
+                  </div>
+                  <p class="figure-caption">
+                    <strong>Figure 8.</strong> SEER agent workflow for extracting motion semantics, grouping targets, and estimating motion regions from MOT annotations.
+                  </p>
                 </div>
                 <div class="agent-speech-card">
                   <div class="agent-speech-avatar">
@@ -1350,7 +1477,7 @@
                   </div>
                   <div class="agent-voice-bubble">
                     <p>
-                      I am the SEER agent, and my workflow is illustrated in the figure above. Starting from MOT annotations such as object IDs, bounding boxes, and category labels, I parse them into structured motion semantics. In this process, I iteratively call four specialized tools: <strong>Kalman Filtering</strong> to smooth trajectories, <strong>Direction-Angle Computation</strong> to infer motion direction and turning behavior, <strong>DBSCAN Clustering</strong> to group targets with similar dynamics, and <strong>Motion-Region Estimation</strong> to determine where each target moves within the scene. From these analyses, I construct motion profiles that describe each target in terms of its motion pattern, direction, speed, and region. Whenever multiple targets exhibit consistent motion behaviors, I automatically associate them into unified groups, enabling coherent multi-object descriptions grounded in their trajectories.
+                      I am the SEER agent, and my workflow is illustrated in Figure 8 above. Starting from MOT annotations such as object IDs, bounding boxes, and category labels, I parse them into structured motion semantics. In this process, I iteratively call four specialized tools: <strong>Kalman Filtering</strong> to smooth trajectories, <strong>Direction-Angle Computation</strong> to infer motion direction and turning behavior, <strong>DBSCAN Clustering</strong> to group targets with similar dynamics, and <strong>Motion-Region Estimation</strong> to determine where each target moves within the scene. From these analyses, I construct motion profiles that describe each target in terms of its motion pattern, direction, speed, and region. Whenever multiple targets exhibit consistent motion behaviors, I automatically associate them into unified groups, enabling coherent multi-object descriptions grounded in their trajectories.
                     </p>
                   </div>
                 </div>
@@ -1442,7 +1569,7 @@
           <img src="assets/method.png" alt="DRTrack method overview">
         </div>
         <p class="figure-caption">
-          The overview of DRTrack, a dual-refinement framework that enhances both visual and linguistic representations for referring multi-object tracking. It incorporates a Scale-aware Visual Refinement (SVR) module for multi-scale visual enhancement and a Linguistic-Conditioned Refinement (LCR) Decoder for language-guided query refinement, enabling accurate grounding and robust tracking in complex satellite scenes.
+          <strong>Figure 9.</strong> The overview of DRTrack, a dual-refinement framework that enhances both visual and linguistic representations for referring multi-object tracking. It incorporates a Scale-aware Visual Refinement (SVR) module for multi-scale visual enhancement and a Linguistic-Conditioned Refinement (LCR) Decoder for language-guided query refinement, enabling accurate grounding and robust tracking in complex satellite scenes.
         </p>
       </section>
 
@@ -1454,80 +1581,391 @@
           <details class="accordion-item" open>
             <summary>Comparison with Existing Methods</summary>
             <div class="accordion-content">
-              <div class="table-frame">
-                <table class="stats-table">
-                  <thead>
-                    <tr>
-                      <th>Method</th>
-                      <th>HOTA</th>
-                      <th>DetA</th>
-                      <th>AssA</th>
-                      <th>DetRe</th>
-                      <th>DetPr</th>
-                      <th>AssRe</th>
-                      <th>AssPr</th>
-                      <th>LocA</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>iKUN</td>
-                      <td>12.86</td>
-                      <td>3.67</td>
-                      <td>46.08</td>
-                      <td>7.03</td>
-                      <td>7.11</td>
-                      <td>52.47</td>
-                      <td>80.56</td>
-                      <td>68.07</td>
-                    </tr>
-                    <tr>
-                      <td>TransRMOT</td>
-                      <td>21.56</td>
-                      <td>9.19</td>
-                      <td>50.61</td>
-                      <td>17.06</td>
-                      <td>16.61</td>
-                      <td>60.13</td>
-                      <td>75.17</td>
-                      <td>74.98</td>
-                    </tr>
-                    <tr>
-                      <td>TempRMOT</td>
-                      <td>23.32</td>
-                      <td>11.15</td>
-                      <td>48.78</td>
-                      <td>21.05</td>
-                      <td>19.17</td>
-                      <td>59.06</td>
-                      <td>76.12</td>
-                      <td>74.63</td>
-                    </tr>
-                    <tr>
-                      <td>DKGTrack</td>
-                      <td>25.63</td>
-                      <td>12.79</td>
-                      <td>51.39</td>
-                      <td>24.68</td>
-                      <td>20.97</td>
-                      <td>60.61</td>
-                      <td>75.49</td>
-                      <td>75.01</td>
-                    </tr>
-                    <tr class="ours">
-                      <td><strong>DRTrack (Ours)</strong></td>
-                      <td>31.23</td>
-                      <td>18.85</td>
-                      <td>51.78</td>
-                      <td>31.08</td>
-                      <td>32.39</td>
-                      <td>62.07</td>
-                      <td>76.57</td>
-                      <td>75.48</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="category-comparison-grid">
+                <div class="table-frame category-table-frame">
+                  <table class="stats-table category-table">
+                    <thead>
+                      <tr>
+                        <th>Cat</th>
+                        <th>Method</th>
+                        <th>HOTA</th>
+                        <th>DetA</th>
+                        <th>AssA</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="category-name-cell" rowspan="5">Car</td>
+                        <td>iKUN</td>
+                        <td>12.11</td>
+                        <td>4.74</td>
+                        <td>31.07</td>
+                      </tr>
+                      <tr>
+                        <td>TransRMOT</td>
+                        <td>12.18</td>
+                        <td>4.78</td>
+                        <td>31.04</td>
+                      </tr>
+                      <tr>
+                        <td>TempRMOT</td>
+                        <td>12.03</td>
+                        <td>4.51</td>
+                        <td>32.12</td>
+                      </tr>
+                      <tr>
+                        <td>DKGTrack</td>
+                        <td>12.15</td>
+                        <td>5.66</td>
+                        <td>26.15</td>
+                      </tr>
+                      <tr class="ours">
+                        <td><strong>DRTrack</strong></td>
+                        <td>13.77</td>
+                        <td>7.62</td>
+                        <td>24.92</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="table-frame category-table-frame">
+                  <table class="stats-table category-table">
+                    <thead>
+                      <tr>
+                        <th>Cat</th>
+                        <th>Method</th>
+                        <th>HOTA</th>
+                        <th>DetA</th>
+                        <th>AssA</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="category-name-cell" rowspan="5">Airplane</td>
+                        <td>iKUN</td>
+                        <td>41.80</td>
+                        <td>31.97</td>
+                        <td>54.68</td>
+                      </tr>
+                      <tr>
+                        <td>TransRMOT</td>
+                        <td>45.08</td>
+                        <td>38.66</td>
+                        <td>52.57</td>
+                      </tr>
+                      <tr>
+                        <td>TempRMOT</td>
+                        <td>43.67</td>
+                        <td>34.30</td>
+                        <td>55.64</td>
+                      </tr>
+                      <tr>
+                        <td>DKGTrack</td>
+                        <td>48.21</td>
+                        <td>41.16</td>
+                        <td>56.47</td>
+                      </tr>
+                      <tr class="ours">
+                        <td><strong>DRTrack</strong></td>
+                        <td>48.69</td>
+                        <td>40.27</td>
+                        <td>58.88</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="table-frame category-table-frame">
+                  <table class="stats-table category-table">
+                    <thead>
+                      <tr>
+                        <th>Cat</th>
+                        <th>Method</th>
+                        <th>HOTA</th>
+                        <th>DetA</th>
+                        <th>AssA</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="category-name-cell" rowspan="5">Ship</td>
+                        <td>iKUN</td>
+                        <td>25.02</td>
+                        <td>16.09</td>
+                        <td>38.94</td>
+                      </tr>
+                      <tr>
+                        <td>TransRMOT</td>
+                        <td>25.23</td>
+                        <td>16.57</td>
+                        <td>38.44</td>
+                      </tr>
+                      <tr>
+                        <td>TempRMOT</td>
+                        <td>25.98</td>
+                        <td>17.19</td>
+                        <td>39.30</td>
+                      </tr>
+                      <tr>
+                        <td>DKGTrack</td>
+                        <td>25.50</td>
+                        <td>17.43</td>
+                        <td>37.37</td>
+                      </tr>
+                      <tr class="ours">
+                        <td><strong>DRTrack</strong></td>
+                        <td>26.44</td>
+                        <td>18.59</td>
+                        <td>37.68</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="table-frame category-table-frame">
+                  <table class="stats-table category-table">
+                    <thead>
+                      <tr>
+                        <th>Cat</th>
+                        <th>Method</th>
+                        <th>HOTA</th>
+                        <th>DetA</th>
+                        <th>AssA</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="category-name-cell" rowspan="5">Train</td>
+                        <td>iKUN</td>
+                        <td>0.73</td>
+                        <td>0.03</td>
+                        <td>20.15</td>
+                      </tr>
+                      <tr>
+                        <td>TransRMOT</td>
+                        <td>0.54</td>
+                        <td>0.01</td>
+                        <td>20.94</td>
+                      </tr>
+                      <tr>
+                        <td>TempRMOT</td>
+                        <td>0.58</td>
+                        <td>0.02</td>
+                        <td>21.26</td>
+                      </tr>
+                      <tr>
+                        <td>DKGTrack</td>
+                        <td>0.63</td>
+                        <td>0.02</td>
+                        <td>20.30</td>
+                      </tr>
+                      <tr class="ours">
+                        <td><strong>DRTrack</strong></td>
+                        <td>0.55</td>
+                        <td>0.01</td>
+                        <td>30.67</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
+              <p class="figure-caption">
+                <strong>Table 4.</strong> Category-wise comparison with existing methods on SatRMOT. The four category-specific result blocks are grouped as one table, covering Car, Airplane, Ship, and Train with HOTA, DetA, and AssA.
+              </p>
+            </div>
+          </details>
+
+          <details class="accordion-item" open>
+            <summary>Cross-Dataset Comparison</summary>
+            <div class="accordion-content">
+              <p class="figure-caption">
+                We further evaluate DRTrack on two existing referring tracking datasets, RefSat and RefKITTI, to examine its performance beyond SatRMOT. These results report the standard HOTA-family metrics and provide a direct comparison with representative RMOT methods under different data distributions.
+              </p>
+              <div class="cross-dataset-stack">
+                <div class="subtable-block">
+                  <p class="subtable-title">Table 5. RefSat Benchmark</p>
+                  <div class="table-frame">
+                    <table class="stats-table cross-dataset-table">
+                      <thead>
+                        <tr>
+                          <th>Dataset</th>
+                          <th>Method</th>
+                          <th>HOTA</th>
+                          <th>DetA</th>
+                          <th>AssA</th>
+                          <th>DetRe</th>
+                          <th>DetPr</th>
+                          <th>AssRe</th>
+                          <th>AssPr</th>
+                          <th>LocA</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="category-name-cell" rowspan="5">RefSat</td>
+                          <td>iKUN</td>
+                          <td>16.98</td>
+                          <td>5.93</td>
+                          <td>50.90</td>
+                          <td>10.67</td>
+                          <td>11.33</td>
+                          <td>53.52</td>
+                          <td>82.36</td>
+                          <td>73.19</td>
+                        </tr>
+                        <tr>
+                          <td>TransRMOT</td>
+                          <td>23.84</td>
+                          <td>10.13</td>
+                          <td>57.93</td>
+                          <td>20.97</td>
+                          <td>15.78</td>
+                          <td>61.80</td>
+                          <td>83.99</td>
+                          <td>77.11</td>
+                        </tr>
+                        <tr>
+                          <td>TempRMOT</td>
+                          <td>24.77</td>
+                          <td>11.42</td>
+                          <td>55.69</td>
+                          <td>22.55</td>
+                          <td>17.90</td>
+                          <td>59.81</td>
+                          <td>81.90</td>
+                          <td>76.06</td>
+                        </tr>
+                        <tr>
+                          <td>RSRefTrack</td>
+                          <td>32.77</td>
+                          <td>17.82</td>
+                          <td>62.88</td>
+                          <td>26.91</td>
+                          <td>31.15</td>
+                          <td>67.03</td>
+                          <td>84.27</td>
+                          <td>77.20</td>
+                        </tr>
+                        <tr class="ours">
+                          <td><strong>DRTrack</strong></td>
+                          <td>33.21</td>
+                          <td>18.12</td>
+                          <td>60.98</td>
+                          <td>26.42</td>
+                          <td>36.41</td>
+                          <td>76.98</td>
+                          <td>76.58</td>
+                          <td>84.35</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="subtable-block">
+                  <p class="subtable-title">Table 6. RefKITTI Benchmark</p>
+                  <div class="table-frame">
+                    <table class="stats-table cross-dataset-table">
+                      <thead>
+                        <tr>
+                          <th>Dataset</th>
+                          <th>Method</th>
+                          <th>HOTA</th>
+                          <th>DetA</th>
+                          <th>AssA</th>
+                          <th>DetRe</th>
+                          <th>DetPr</th>
+                          <th>AssRe</th>
+                          <th>AssPr</th>
+                          <th>LocA</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="category-name-cell" rowspan="6">RefKITTI</td>
+                          <td>iKUN</td>
+                          <td>48.84</td>
+                          <td>35.74</td>
+                          <td>66.80</td>
+                          <td>51.97</td>
+                          <td>52.25</td>
+                          <td>72.95</td>
+                          <td>87.09</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>TransRMOT</td>
+                          <td>38.06</td>
+                          <td>29.28</td>
+                          <td>50.83</td>
+                          <td>40.20</td>
+                          <td>47.36</td>
+                          <td>55.43</td>
+                          <td>81.36</td>
+                          <td>79.79</td>
+                        </tr>
+                        <tr>
+                          <td>TransRMOT*</td>
+                          <td>45.65</td>
+                          <td>36.15</td>
+                          <td>57.86</td>
+                          <td>54.58</td>
+                          <td>50.65</td>
+                          <td>61.15</td>
+                          <td>89.96</td>
+                          <td>90.33</td>
+                        </tr>
+                        <tr>
+                          <td>TempRMOT</td>
+                          <td>50.31</td>
+                          <td>38.48</td>
+                          <td>65.93</td>
+                          <td>52.23</td>
+                          <td>57.88</td>
+                          <td>70.98</td>
+                          <td>87.76</td>
+                          <td>90.40</td>
+                        </tr>
+                        <tr>
+                          <td>DKGTrack</td>
+                          <td>52.08</td>
+                          <td>41.10</td>
+                          <td>66.04</td>
+                          <td>57.57</td>
+                          <td>58.36</td>
+                          <td>71.13</td>
+                          <td>87.98</td>
+                          <td>90.54</td>
+                        </tr>
+                        <tr class="ours">
+                          <td><strong>DRTrack</strong></td>
+                          <td>51.36</td>
+                          <td>41.77</td>
+                          <td>63.17</td>
+                          <td>52.18</td>
+                          <td>67.46</td>
+                          <td>78.49</td>
+                          <td>78.43</td>
+                          <td>90.78</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="accordion-item" open>
+            <summary>Qualitative Comparison across Methods</summary>
+            <div class="accordion-content">
+              <div class="media-frame plain-media">
+                <img class="zoomable-image" src="assets/103.png" alt="Qualitative visualization comparison of different methods on SatRMOT">
+              </div>
+              <p class="figure-caption">
+                <strong>Figure 10.</strong> Qualitative visualization of different methods on SatRMOT. The comparison highlights how richer language grounding and stronger visual-linguistic refinement help DRTrack localize the referred tiny objects more consistently in dense satellite video scenes.
+              </p>
             </div>
           </details>
 
@@ -1549,7 +1987,7 @@
                 <img class="zoomable-image" src="assets/car.png" alt="Qualitative visualization results for the car category">
               </div>
               <p class="figure-caption">
-                Qualitative visualization results for the car category. Groundtruth boxes are shown in yellow. Predicted boxes are drawn in red for cars.
+                <strong>Figure 11.</strong> Qualitative visualization results for the car category. Groundtruth boxes are shown in yellow. Predicted boxes are drawn in red for cars.
               </p>
             </div>
           </details>
@@ -1561,7 +1999,7 @@
                 <img class="zoomable-image" src="assets/airplane.png" alt="Qualitative visualization results for the airplane category">
               </div>
               <p class="figure-caption">
-                Qualitative visualization results for the airplane category. Groundtruth boxes are shown in yellow. Predicted boxes are drawn in blue for airplanes.
+                <strong>Figure 12.</strong> Qualitative visualization results for the airplane category. Groundtruth boxes are shown in yellow. Predicted boxes are drawn in blue for airplanes.
               </p>
             </div>
           </details>
@@ -1573,7 +2011,7 @@
                 <img class="zoomable-image" src="assets/ship.png" alt="Qualitative visualization results for the ship category">
               </div>
               <p class="figure-caption">
-                Qualitative visualization results for the ship category. Groundtruth boxes are shown in yellow. Predicted boxes are drawn in green for ships.
+                <strong>Figure 13.</strong> Qualitative visualization results for the ship category. Groundtruth boxes are shown in yellow. Predicted boxes are drawn in green for ships.
               </p>
             </div>
           </details>
